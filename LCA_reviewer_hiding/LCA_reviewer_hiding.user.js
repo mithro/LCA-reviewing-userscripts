@@ -39,33 +39,38 @@ function LCA_findTable() {
 }
 
 function LCA_createUnhide() {
-        var unhideTableElem = document.createElement("div");
-	unhideTableElem.style.border = "thin solid #ff0";
-	unhideTableElem.style.backgroundColor = "#ffc";
-	unhideTableElem.style.padding = "1ex";
-	unhideTableElem.style.fontWeight = "bold";
-	unhideTableElem.style.textDecoration = "underline";
-	unhideTableElem.id = "unhidetable";
 	table = LCA_findTable();
-	table.parentNode.insertBefore(unhideTableElem, table);
-	return unhideTableElem;
+	if (table != undefined){
+		var unhideTableElem = document.createElement("div");
+		unhideTableElem.style.border = "thin solid #ff0";
+		unhideTableElem.style.backgroundColor = "#ffc";
+		unhideTableElem.style.padding = "1ex";
+		unhideTableElem.style.fontWeight = "bold";
+		unhideTableElem.style.textDecoration = "underline";
+		unhideTableElem.id = "unhidetable";
+		table.parentNode.insertBefore(unhideTableElem, table);
+	}
 }
 
 function LCA_hideTable() {
 	table = LCA_findTable();
-	table.style.display = "none";
-	var unhide = document.getElementById("unhidetable");
-	unhide.textContent = "Existing reviews hidden, click to see.";
-	unhide.onclick = LCA_showTable;
+	if (table != undefined) {
+		table.style.display = "none";
+		var unhide = document.getElementById("unhidetable");
+		unhide.textContent = "Existing reviews hidden, click to see.";
+		unhide.onclick = LCA_showTable;
+	}
 	return false;
 }
 
 function LCA_showTable() {
 	table = LCA_findTable();
-	table.style.display = "block";
-	var unhideTableElem = document.getElementById("unhidetable");
-	unhideTableElem.textContent = "Showing existing reviews, click to hide.";
-	unhideTableElem.onclick = LCA_hideTable;
+	if (table != undefined){
+		table.style.display = "block";
+		var unhideTableElem = document.getElementById("unhidetable");
+		unhideTableElem.textContent = "Showing existing reviews, click to hide.";
+		unhideTableElem.onclick = LCA_hideTable;
+	}
 	return false;
 }
 

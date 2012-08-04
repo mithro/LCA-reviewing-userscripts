@@ -43,44 +43,58 @@ function LCA_findFollowing(a) {
 	}
 }
 
-function LCA_createUnhide() {
-        var unhideMiniconfElem = document.createElement("div");
-	unhideMiniconfElem.style.border = "thin solid #ff0";
-	unhideMiniconfElem.style.backgroundColor = "#ffc";
-	unhideMiniconfElem.style.padding = "1ex";
-	unhideMiniconfElem.style.fontWeight = "bold";
-	unhideMiniconfElem.style.textDecoration = "underline";
-	unhideMiniconfElem.id = "unhideminiconfs";
+function LCA_createReviewPageMenu() {
+	var reviewMenu = document.createElement("div");
+	reviewMenu.id = "reviewmenu";
+	reviewMenu.innerHTML = "<h2>Navigation</h2><ul><li><a href=\"#Miniconf\">Miniconfs</a></li><li><a href=\"#Presentation\">Presentations</a></li><li><a href=\"#Tutorial1hourand30minutes\">Tutorials</a></li></ul>";
+	return reviewMenu;
+}
+
+function LCA_createUnhideMiniconfs() {
 	a = LCA_findA();
-	a.parentNode.insertBefore(unhideMiniconfElem, a);
-	return unhideMiniconfElem;
+	if (a != undefined) {
+		var unhideMiniconfElem = document.createElement("div");
+		unhideMiniconfElem.style.border = "thin solid #ff0";
+		unhideMiniconfElem.style.backgroundColor = "#ffc";
+		unhideMiniconfElem.style.padding = "1ex";
+		unhideMiniconfElem.style.fontWeight = "bold";
+		unhideMiniconfElem.style.textDecoration = "underline";
+		unhideMiniconfElem.id = "unhideminiconfs";
+		a.parentNode.insertBefore(unhideMiniconfElem, a);
+		var reviewMenu = LCA_createReviewPageMenu();
+		unhideMiniconfElem.parentNode.insertBefore(reviewMenu, unhideMiniconfElem);
+	}
 }
 
 function LCA_hideMiniconfs() {
 	a = LCA_findA();
-	var toHides = LCA_findFollowing(a);
-	for (i = 0; i < toHides.length; i++) {
-		var toHide = toHides[i];
-		toHide.style.display = "none";
+	if (a != undefined) {
+		var toHides = LCA_findFollowing(a);
+		for (i = 0; i < toHides.length; i++) {
+			var toHide = toHides[i];
+			toHide.style.display = "none";
+		}
+		var unhide = document.getElementById("unhideminiconfs");
+		unhide.textContent = "Miniconfs hidden, click to see.";
+		unhide.onclick = LCA_showMiniconfs;
 	}
-	var unhide = document.getElementById("unhideminiconfs");
-	unhide.textContent = "Miniconfs hidden, click to see.";
-	unhide.onclick = LCA_showMiniconfs;
 	return false;
 }
 
 function LCA_showMiniconfs() {
-	table = LCA_findA();
-	var toShows = LCA_findFollowing(a);
-	for (i = 0; i < toShows.length; i++) {
-		var toShow = toShows[i];
-		toShow.style.display = "block";
+	a = LCA_findA();
+	if (a != undefined) {
+		var toShows = LCA_findFollowing(a);
+		for (i = 0; i < toShows.length; i++) {
+			var toShow = toShows[i];
+			toShow.style.display = "block";
+		}
+		var unhideMiniconfElem = document.getElementById("unhideminiconfs");
+		unhideMiniconfElem.textContent = "Showing miniconfs, click to hide.";
+		unhideMiniconfElem.onclick = LCA_hideMiniconfs;
 	}
-	var unhideMiniconfElem = document.getElementById("unhideminiconfs");
-	unhideMiniconfElem.textContent = "Showing miniconfs, click to hide.";
-	unhideMiniconfElem.onclick = LCA_hideMiniconfs;
 	return false;
 }
 
-LCA_createUnhide();
+LCA_createUnhideMiniconfs();
 LCA_hideMiniconfs();

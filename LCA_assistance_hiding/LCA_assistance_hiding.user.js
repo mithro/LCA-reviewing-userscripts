@@ -34,16 +34,22 @@ var LCA_assistanceStrings = {"Accommodation assistance:" : "accom",
 function LCA_findPs() {
 	var ps = document.getElementsByTagName("p");
 	var myPs = {};
+	var foundPs = false;
 	for (i = 0; i < ps.length; i++) {
 		var p = ps[i];
 		for (var searchString in LCA_assistanceStrings) {
 			if (LCA_checkEm(p, searchString)) {
+				foundPs = true;
 				var suffix = LCA_assistanceStrings[searchString];
 				myPs[suffix] = p;
 			}
 		}
 	}
-	return myPs;
+	if (foundPs) {
+		return myPs;
+	} else {
+		return undefined;
+	}
 }
 
 function LCA_getAssistanceId(suffix) {
@@ -63,33 +69,39 @@ function LCA_createUnhide(idsuffix) {
 
 function LCA_createUnhides() {
 	var ps = LCA_findPs();
-	for (var key in ps) {
-		var p = ps[key];
-		var unhide = LCA_createUnhide(key);
-		p.parentNode.insertBefore(unhide, p);
+	if (ps != undefined) {
+		for (var key in ps) {
+			var p = ps[key];
+			var unhide = LCA_createUnhide(key);
+			p.parentNode.insertBefore(unhide, p);
+		}
 	}
 }
 
 function LCA_hideP(suffix) {
 	var unhide = document.getElementById(LCA_getAssistanceId(suffix));
 	var ps = LCA_findPs();
-	var p = ps[suffix];
-	p.style.visibility = "hidden";
-	unhide.textContent = "Hidden " + suffix + " assistance request status, click to see.";
-	unhide.onclick = function () {LCA_showP(suffix);};
+	if (ps != undefined) {
+		var p = ps[suffix];
+		p.style.visibility = "hidden";
+		unhide.textContent = "Hidden " + suffix + " assistance request status, click to see.";
+		unhide.onclick = function () {LCA_showP(suffix);};
 
+	}
 	return false;
 }
 
 function LCA_showP(suffix) {
 	var ps = LCA_findPs();
-	var p = ps[suffix];
-	p.style.visibility = "visible";
-	var unhidePElem = document.getElementById(
-			LCA_getAssistanceId(suffix));
-	unhidePElem.textContent = "Showing " + suffix + " assistance request status, click to hide.";
-	unhidePElem.onclick = function () {
-		LCA_hideP(suffix); };
+	if (ps != undefined) {
+		var p = ps[suffix];
+		p.style.visibility = "visible";
+		var unhidePElem = document.getElementById(
+				LCA_getAssistanceId(suffix));
+		unhidePElem.textContent = "Showing " + suffix + " assistance request status, click to hide.";
+		unhidePElem.onclick = function () {
+			LCA_hideP(suffix); };
+	}
 	return false;
 }
 
