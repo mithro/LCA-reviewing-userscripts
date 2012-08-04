@@ -53,7 +53,7 @@ function LCA_createUnhide() {
 
 function LCA_hideTable() {
 	table = LCA_findTable();
-	table.style.visibility = "hidden";
+	table.style.display = "none";
 	var unhide = document.getElementById("unhidetable");
 	unhide.textContent = "Existing reviews hidden, click to see.";
 	unhide.onclick = LCA_showTable;
@@ -62,7 +62,7 @@ function LCA_hideTable() {
 
 function LCA_showTable() {
 	table = LCA_findTable();
-	table.style.visibility = "visible";
+	table.style.display = "block";
 	var unhideTableElem = document.getElementById("unhidetable");
 	unhideTableElem.textContent = "Showing existing reviews, click to hide.";
 	unhideTableElem.onclick = LCA_hideTable;
