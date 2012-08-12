@@ -2,7 +2,8 @@
 // @name        LCA miniconf hiding
 // @namespace   http://mary.gardiner.id.au/
 // @description Hide the list of miniconfs from the review page in Zookeeper
-// @include     https://lca2013.linux.org.au/*
+// @include	/^https?://lca\d*\.linux.org.au/.*$/
+// @include     /^https?://linux\.conf\.au/.*$/
 // @version     1
 // ==/UserScript==
 

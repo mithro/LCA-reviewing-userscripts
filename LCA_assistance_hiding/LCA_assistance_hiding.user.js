@@ -2,7 +2,8 @@
 // @name        LCA assistance hiding
 // @namespace   http://mary.gardiner.id.au/
 // @description Hide travel and accommodation assistance requests
-// @include     https://lca2013.linux.org.au/*
+// @include	/^https?://lca\d*\.linux.org.au/.*$/
+// @include     /^https?://linux\.conf\.au/.*$/
 // @version     1
 // ==/UserScript==
 

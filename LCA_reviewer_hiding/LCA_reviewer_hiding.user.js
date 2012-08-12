@@ -2,7 +2,8 @@
 // @name        LCA reviewer hiding
 // @namespace   http://mary.gardiner.id.au/
 // @description Hide existing reviewers and their reviews in Zookeeper
-// @include     https://lca2013.linux.org.au/*
+// @include	/^https?://lca\d*\.linux.org.au/.*$/
+// @include     /^https?://linux\.conf\.au/.*$/
 // @version     1
 // ==/UserScript==
 
